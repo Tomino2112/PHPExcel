@@ -87,6 +87,8 @@ class PHPExcel_Cell
      */
     private $formulaAttributes;
 
+    private $_ref = "";
+
 
     /**
      *    Send notification to the cache controller
@@ -178,6 +180,10 @@ class PHPExcel_Cell
         return $this->value;
     }
 
+    public function getRef(){
+        return $this->_ref;
+    }
+
     /**
      *    Get cell value with formatting
      *
@@ -245,6 +251,9 @@ class PHPExcel_Cell
             case PHPExcel_Cell_DataType::TYPE_ERROR:
                 $this->value = PHPExcel_Cell_DataType::checkErrorCode($pValue);
                 break;
+            case PHPExcel_Cell_DataType::TYPE_FORMULA_ARRAY:
+                $this->_value = (string)$pValue;
+                break;
             default:
                 throw new PHPExcel_Exception('Invalid datatype: ' . $pDataType);
                 break;
@@ -254,6 +263,11 @@ class PHPExcel_Cell
         $this->dataType = $pDataType;
 
         return $this->notifyCacheController();
+    }
+
+    public function setArrayFormula($rangeAddress, $pValue = NULL){
+        $this->_ref = $rangeAddress;
+        return $this->setValueExplicit($pValue, PHPExcel_Cell_DataType::TYPE_FORMULA_ARRAY);
     }
 
     /**
