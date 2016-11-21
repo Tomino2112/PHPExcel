@@ -1158,7 +1158,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                     case 't':           // Array Formulae
                         $objWriter->startElement('f');
                         $objWriter->writeAttribute('t', 'array');
-                        $objWriter->writeAttribute('ref', "B9:K18");
+                        $objWriter->writeAttribute('ref', $pCell->getRef());
                         // $objWriter->writeAttribute('aca', '1');
                         // $objWriter->writeAttribute('ca', '1');
                         $objWriter->text($cellValue);

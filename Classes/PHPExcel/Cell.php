@@ -252,7 +252,7 @@ class PHPExcel_Cell
                 $this->value = PHPExcel_Cell_DataType::checkErrorCode($pValue);
                 break;
             case PHPExcel_Cell_DataType::TYPE_FORMULA_ARRAY:
-                $this->_value = (string)$pValue;
+                $this->value = (string)$pValue;
                 break;
             default:
                 throw new PHPExcel_Exception('Invalid datatype: ' . $pDataType);
