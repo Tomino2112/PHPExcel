@@ -2885,7 +2885,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
                     $newCollection->copyCellCollection($this);
                     $this->cellCollection = $newCollection;
                 } elseif ($key == 'drawingCollection') {
-                    $newCollection = clone $this->drawingCollection;
+                    $newCollection = new ArrayObject();
+                    foreach ($this->drawingCollection as $id => $item) {
+                        if (is_object($item)) {
+                            $newCollection[$id] = clone $this->drawingCollection[$id];
+                        }
+                    }
                     $this->drawingCollection = $newCollection;
                 } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof PHPExcel_Worksheet_AutoFilter)) {
                     $newAutoFilter = clone $this->autoFilter;
